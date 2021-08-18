@@ -1,9 +1,22 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`App component renders App 1`] = `
+exports[`App component snapshot test for App 1`] = `
 <DocumentFragment>
-  <h1>
-    Hello World
-  </h1>
+  <button>
+    undo
+  </button>
+  <button>
+    redo
+  </button>
+  <input
+    name="color"
+    type="color"
+    value="#ffffff"
+  />
+  <div
+    style="background-color: rgb(255, 255, 255); width: 10rem; height: 10rem;"
+  >
+    #ffffff
+  </div>
 </DocumentFragment>
 `;
