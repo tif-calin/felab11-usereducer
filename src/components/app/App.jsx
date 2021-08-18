@@ -12,28 +12,27 @@ const reducer = (state, action) => {
 
   switch (action.type) {
     case 'undo':
-      return {
-        before: [...before.slice(0, -1)],
-        current: before[before.length - 1],
-        after: [...after]
-      };
+      return before.length ? {
+        before: before.slice(0, -1),
+        current: before.pop() || '#ffffff',
+        after: [current, ...after]
+      } : state;
     case 'redo':
-      return {
-        before: [...before],
-        current: after[0],
-        after: [...after.slice(1)]
-      };
+      return after.length ? {
+        before: [...before, current],
+        current: after[0] || '#ffffff',
+        after: after.slice(1)
+      } : state;
     case 'record':
       return {
         before: [...before, current],
         current: action.color,
-        after: [] // not original functionality but i think it makes sense
+        after
       };
     default:
       return state;
   }
 };
-
 
 function App() {
   const [state, dispatch] = useReducer(reducer, initialState);
@@ -44,6 +43,7 @@ function App() {
     <button onClick={() => dispatch({ type: 'undo' })}>undo</button>
     <button onClick={() => dispatch({ type: 'redo' })}>redo</button>
     <input
+      name="color"
       type="color"
       value={current}
       onChange={({ target }) => 
